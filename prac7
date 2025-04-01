@@ -1,0 +1,47 @@
+Q1) k-means clustering
+# Read data
+data("iris")
+names(iris)
+#subset(): Filters rows or columns based on conditions.
+#select = -Species: Selects all columns except the Species column.
+new_data<-subset(iris,select = c(-Species))
+new_data
+#kmeans(): Performs K-means clustering.
+ cl<-kmeans(new_data,3)
+ cl
+data <- new_data
+wss <- sapply(1:15, function(k){kmeans(data, k )$tot.withinss})
+wss
+plot(1:15, wss,
+type="b", pch = 19, frame = FALSE,
+xlab="Number of clusters K",
+ylab="Total within-clusters sum of squares")
+#Visualizing the clusters
+install.packages("cluster")
+library(cluster)
+clusplot(new_data, cl$cluster, color=TRUE, shade=TRUE, labels=2, lines=0)
+#To displays the cluster assignments for each data point in the new_data dataset.
+cl$cluster
+#To display the centroids of the clusters.
+cl$centers
+
+Q2) Hierarchical Clustering: Agglomerative clustering
+# Read data
+data("iris")
+names(iris)
+#To performs hierarchical clustering
+clusters <- hclust(dist(iris[, 3:4]))
+#To plot the dendrogram
+plot(clusters)
+clusterCut <- cutree(clusters, 3)
+table(clusterCut, iris$Species)
+install.packages("ggplot2")
+library(ggplot2)
+#To create a scatter plot of Petal.Length vs Petal.Width
+ggplot(iris, aes(Petal.Length, Petal.Width, color = iris$Species)) +
+geom_point(alpha = 0.4, size = 3.5) + geom_point(col = clusterCut) +
+scale_color_manual(values = c('black', 'red', 'green'))
+clusters <- hclust(dist(iris[, 3:4]), method = 'average')
+clusterCut1 <- cutree(clusters, 3)
+table(clusterCut1, iris$Species)
+plot(clusters)
