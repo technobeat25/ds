@@ -1,0 +1,41 @@
+#q1
+library("pls")
+data("iris")
+head(iris)
+summary(iris)
+plot(iris$Sepal.Length,iris$Sepal.Width)
+plot(scale(iris$Sepal.Length),scale(iris$Sepal.Width))
+mypr-> prcomp(iris[,-5],scale=T)
+summary(mypr)
+str(mypr)
+plot(mypr,type="I")
+biplot(mypr,scale=0)
+mypr$x
+iris2->cbind(iris,mypr$x[,1:2])
+head(iris2)
+cor(iris[,-5],iris2[,6:7]
+names(iris)
+prmodel->pcr(Species~.,ncomp=3,data=iris,scale=T)
+iris$pred->predict(prmodel,iris,ncomp=2)
+head(iris)
+
+#q2
+library("pls")
+data("mtcars")
+head(mtcars)
+summary(mtcars)
+plot(mtcars$mpg, mtcars$hp, main = "Original Data")
+plot(scale(mtcars$mpg), scale(mtcars$hp), main = "Scaled Data")
+mypr-> prcomp(mtcars,scale=T)
+summary(mypr)
+str(mypr)
+plot(mypr,type="I")
+biplot(mypr,scale=0)
+mypr$x
+mtcars2->cbind(mtcars,mypr$x[,1:2])
+head(mtcars2)
+cor(mtcars[,-1],mtcars2[,12:13]
+names(mtcars)
+prmodel->pcr(Species~.,ncomp=3,data=mtcars,scale=T)
+iris$pred->predict(prmodel,mtcars,ncomp=2)
+head(mtcars)
